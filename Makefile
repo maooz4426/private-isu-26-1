@@ -12,3 +12,8 @@ benchmarker/userdata/img.zip:
 benchmarker/userdata/img: benchmarker/userdata/img.zip
 	cd benchmarker/userdata && \
 	unzip -qq -o img.zip
+
+.PHONY: deploy
+deploy:
+	git pull
+	sudo systemctl restart isu-ruby
