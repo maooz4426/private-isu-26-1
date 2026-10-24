@@ -19,6 +19,8 @@ GEM
     mustermann (3.1.1)
     mysql2 (0.5.7)
       bigdecimal
+    mysql2-cs-bind (0.1.1)
+      mysql2
     rack (3.2.7)
     rack-flash3 (1.0.5)
       rack
@@ -53,7 +55,7 @@ DEPENDENCIES
   bigdecimal
   connection_pool
   dalli
-  mysql2
+  mysql2-cs-bind
   rack
   rack-flash3
   sinatra
