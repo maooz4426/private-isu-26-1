@@ -65,6 +65,7 @@ module Isuconp
         sql.each do |s|
           db.query(s)
         end
+        memcached.flush
       end
 
       def try_login(account_name, password)
@@ -126,7 +127,7 @@ module Isuconp
             post[:comment_count] = db.xquery('SELECT COUNT(*) AS `count` FROM `comments` WHERE `post_id` = ?', post[:id]
           ).first[:count]
             # memcachedにset
-            memcached.set("comments.#{post[:id]}.count",post[:comment_count],10)
+            memcached.set("comments.#{post[:id]}.count",post[:comment_count],60)
           end
           # 投稿ごとのコメントをmemcachedからget
           if cached_comments["comments.#{post[:id]}.#{all_comments.to_s}"]
@@ -147,7 +148,7 @@ module Isuconp
           end
           # memcachedにset
           post[:comments] = comments.reverse
-          memcached.set("comments.#{post[:id]}.#{all_comments.to_s}", post[:comments],10)
+          memcached.set("comments.#{post[:id]}.#{all_comments.to_s}", post[:comments],60)
         end
 
           post[:user] = {
