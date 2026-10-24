@@ -8,7 +8,7 @@ gem "rack"
 # unreleased git revision until a compatible gem is published.
 gem "unicorn", git: "https://github.com/defunkt/unicorn.git", ref: "e9862718a7e98d3cbec74fc92ffc17a1023e18da"
 gem 'bigdecimal'
-gem "mysql2"
+gem "mysql2-cs-bind"
 gem "rack-flash3"
 gem 'connection_pool'
 gem "dalli"
