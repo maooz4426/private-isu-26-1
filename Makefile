@@ -13,8 +13,11 @@ benchmarker/userdata/img: benchmarker/userdata/img.zip
 	cd benchmarker/userdata && \
 	unzip -qq -o img.zip
 
-.PHONY: deploy
+.PHONY: deploy rotate-log
 deploy:
 	git pull
 	cd webapp/ruby && bundle install
 	sudo systemctl restart isu-ruby
+
+rotate-log:
+	sudo truncate -s 0 /var/log/mysql/mysql-slow.log /var/log/nginx/access.log /var/log/nginx/error.log
