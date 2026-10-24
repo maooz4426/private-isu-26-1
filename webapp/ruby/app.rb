@@ -304,7 +304,11 @@ module Isuconp
       results = db.xquery(<<~SQL,
         SELECT p.`id`, p.`user_id`, p.`body`, p.`mime`, p.`created_at`, u.`account_name`
         FROM `posts` AS p
+<<<<<<< HEAD
         STRAIGHT_JOIN `users` AS u ON (p.`user_id` = u.`id`)
+=======
+        JOIN `users` AS u ON (p.`user_id` = u.`id`)
+>>>>>>> 3e9e04f (Revert "refactor: postの取得でforce indexを追加 (#15)")
         WHERE u.`del_flg` = 0 AND p.`created_at` <= ?
         ORDER BY p.`created_at` DESC
         LIMIT #{POSTS_PER_PAGE}
