@@ -432,9 +432,9 @@ module Isuconp
         me[:id],
         params['comment']
       )
-      memcached.delete("comments.#{post_id}.count")
-      memcached.delete("comments.#{post_id}.true")
-      memcached.delete("comments.#{post_id}.false")
+      # memcached.delete("comments.#{post_id}.count")
+      # memcached.delete("comments.#{post_id}.true")
+      # memcached.delete("comments.#{post_id}.false")
 
       redirect "/posts/#{post_id}", 302
     end
