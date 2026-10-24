@@ -270,7 +270,7 @@ module Isuconp
 
       results = db.xquery(<<~SQL,
         SELECT p.`id`, p.`user_id`, p.`body`, p.`mime`, p.`created_at`, u.`account_name`
-        FROM `posts` AS p FORCE INDEX (`posts_user_idx`)
+        FROM `posts` AS p
         JOIN `users` AS u ON (p.`user_id` = u.`id`)
         WHERE p.`user_id` = ?
         ORDER BY p.`created_at` DESC
