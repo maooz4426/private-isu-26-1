@@ -249,8 +249,8 @@ module Isuconp
 
       results = db.query(<<~SQL)
         SELECT p.`id`, p.`user_id`, p.`body`, p.`created_at`, p.`mime`, u.`account_name`
-        FROM `posts` AS p FORCE INDEX (`posts_user_idx`)
-        JOIN `users` AS u ON (p.`user_id` = u.`id`)
+        FROM `posts` AS p
+        STRAIGHT_JOIN `users` AS u ON (p.`user_id` = u.`id`)
         WHERE u.`del_flg` = 0
         ORDER BY p.`created_at` DESC
         LIMIT #{POSTS_PER_PAGE}
@@ -270,7 +270,7 @@ module Isuconp
 
       results = db.xquery(<<~SQL,
         SELECT p.`id`, p.`user_id`, p.`body`, p.`mime`, p.`created_at`, u.`account_name`
-        FROM `posts` AS p
+        FROM `posts` AS p FORCE INDEX (`posts_user_idx`)
         JOIN `users` AS u ON (p.`user_id` = u.`id`)
         WHERE p.`user_id` = ?
         ORDER BY p.`created_at` DESC
@@ -304,7 +304,7 @@ module Isuconp
       results = db.xquery(<<~SQL,
         SELECT p.`id`, p.`user_id`, p.`body`, p.`mime`, p.`created_at`, u.`account_name`
         FROM `posts` AS p
-        JOIN `users` AS u ON (p.`user_id` = u.`id`)
+        STRAIGHT_JOIN `users` AS u ON (p.`user_id` = u.`id`)
         WHERE u.`del_flg` = 0 AND p.`created_at` <= ?
         ORDER BY p.`created_at` DESC
         LIMIT #{POSTS_PER_PAGE}
@@ -320,7 +320,7 @@ module Isuconp
       results = db.xquery(<<~SQL,
         SELECT p.*, u.`account_name`
         FROM `posts` AS p
-        JOIN `users` AS u ON (p.`user_id` = u.`id`)
+        STRAIGHT_JOIN `users` AS u ON (p.`user_id` = u.`id`)
         WHERE u.`del_flg` = 0 AND p.`id` = ?
       SQL
         params[:id]
