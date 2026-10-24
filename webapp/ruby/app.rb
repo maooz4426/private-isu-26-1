@@ -290,16 +290,11 @@ module Isuconp
       comment_count = db.xquery('SELECT COUNT(*) AS count FROM `comments` WHERE `user_id` = ?', user[:id]
       ).first[:count]
 
-      post_ids = db.xquery('SELECT `id` FROM `posts` WHERE `user_id` = ?', user[:id]
-      ).map{|post| post[:id]}
-      post_count = post_ids.length
+      post_count = db.xquery('SELECT COUNT(*) AS count FROM `posts` WHERE `user_id` = ?', user[:id]
+      ).first[:count]
 
-      commented_count = 0
-      if post_count > 0
-        placeholder = (['?'] * post_ids.length).join(",")
-        commented_count = db.xquery("SELECT COUNT(*) AS count FROM `comments` WHERE `post_id` IN (#{placeholder})", *post_ids
-        ).first[:count]
-      end
+      commented_count = db.xquery('SELECT COUNT(*) AS count FROM `comments` AS c JOIN `posts` AS p ON (c.`post_id` = p.`id`) WHERE p.`user_id` = ?', user[:id]
+      ).first[:count]
 
       me = get_session_user()
 
