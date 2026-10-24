@@ -16,4 +16,5 @@ benchmarker/userdata/img: benchmarker/userdata/img.zip
 .PHONY: deploy
 deploy:
 	git pull
+	cd webapp/ruby && bundle install
 	sudo systemctl restart isu-ruby
