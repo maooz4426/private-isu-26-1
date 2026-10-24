@@ -18,7 +18,7 @@ module Isuconp
 
     POSTS_PER_PAGE = 20
 
-    IMAGE_DIR = File.expand_path('../,,/public/image', __FILE__)
+    IMAGE_DIR = File.expand_path('../../public/image', __FILE__)
 
     helpers do
       def config
@@ -312,7 +312,7 @@ module Isuconp
         if params["file"][:type].include? "jpeg"
           mime,ext = "image/jpeg","jpg"
         elsif params["file"][:type].include? "png"
-          mime,ext = "image/png","jpg"
+          mime,ext = "image/png","png"
         elsif params["file"][:type].include? "gif"
           mime,ext = "image/gif","gif"
         else
