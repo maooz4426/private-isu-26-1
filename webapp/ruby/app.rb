@@ -324,7 +324,7 @@ module Isuconp
 
     get '/posts/:id' do
       results = db.xquery(<<~SQL,
-        SELECT p.*, u.`account_name`
+        SELECT p.`id`, p.`user_id`, p.`body`, p.`mime`, p.`created_at`, u.`account_name`
         FROM `posts` AS p
         STRAIGHT_JOIN `users` AS u ON (p.`user_id` = u.`id`)
         WHERE u.`del_flg` = 0 AND p.`id` = ?
